@@ -1,0 +1,64 @@
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home" text="" color="dark" style="background: rgba(255,255,255,0.8); border-radius: 50%; width: 40px; height: 40px; margin-left: 10px;"></ion-back-button>
+    </ion-buttons>
+    
+    <ion-title></ion-title>
+    
+    <ion-buttons slot="end">
+      <ion-button (click)="toggleFavorite()" color="danger" style="background: rgba(255,255,255,0.8); border-radius: 50%; width: 40px; height: 40px; margin-right: 10px;">
+        <ion-icon [name]="isFavorite ? 'heart' : 'heart-outline'" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" *ngIf="meal" style="--background: #fff;">
+  
+  <div class="hero-image">
+    <img [src]="meal.strMealThumb" [alt]="meal.strMeal" />
+  </div>
+
+  <div class="content-container">
+    
+    <h1 class="dish-title">{{ meal.strMeal }}</h1>
+    
+    <div class="chips-container">
+      <ion-chip color="tertiary" mode="ios" outline="true">
+        <ion-icon name="restaurant"></ion-icon>
+        <ion-label>{{ meal.strCategory }}</ion-label>
+      </ion-chip>
+
+      <ion-chip color="medium" mode="ios" outline="true">
+        <ion-icon name="globe"></ion-icon>
+        <ion-label>{{ meal.strArea }}</ion-label>
+      </ion-chip>
+    </div>
+
+    <hr class="separator">
+
+    <h3><ion-icon name="cart-outline" color="primary"></ion-icon> Ingredients</h3>
+    
+    <ion-list lines="none" class="ingredients-list">
+      <ion-item *ngFor="let item of ingredients" class="ingredient-item">
+        <ion-label>
+          <ion-icon name="ellipse" class="bullet-icon"></ion-icon>
+          <span class="measure">{{ item.measure }}</span> 
+          {{ item.name }}
+        </ion-label>
+      </ion-item>
+    </ion-list>
+
+    <hr class="separator">
+
+    <h3><ion-icon name="receipt-outline" color="primary"></ion-icon> Instructions</h3>
+    <p class="instructions">{{ meal.strInstructions }}</p>
+
+    <ion-button *ngIf="meal.strYoutube" expand="block" color="danger" [href]="meal.strYoutube" target="_blank" class="youtube-btn">
+      <ion-icon name="logo-youtube" slot="start"></ion-icon>
+      Watch Video Recipe
+    </ion-button>
+
+  </div>
+</ion-content>
